@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar"
 function App() {
 
   return (
-    <main className="container max-w-4xl mx-auto">
+    <main className="container max-w-4xl p-4 mx-auto">
       <Navbar />
       <CreateSnippet />
     </main>
