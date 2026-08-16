@@ -4,6 +4,8 @@ import axios from "axios"
 const app = express();
 const PORT = 8005;
 
+app.use(express.json())
+
 app.post("/events", (req,res)=>{
     const events = req.body;
     axios.post("http:localhost:8000/events",events) // snippet service

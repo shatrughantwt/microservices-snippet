@@ -1,5 +1,6 @@
 import {randomBytes} from "crypto"
 import { comments } from "../database/index.js";
+import axios from "axios"
 
 export const createComment = (req, res) =>{
   const id = randomBytes(4).toString("hex");
@@ -13,6 +14,16 @@ export const createComment = (req, res) =>{
 
   comments.push({commentId, text})
   commentsDB[snippetId] = comments;
+
+
+  await axios.post("http://localhost:8005/events",{
+          type: "CommentCreated",
+          data:{
+              id:commentId,
+              content:text,
+              snippetId,
+          },
+      }),
 
   return res.status(201).json({
 

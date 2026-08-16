@@ -10,6 +10,14 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors({
   origin:"http://localhost:5173"
 }))
+
+app.post("events", (req,res)=>{
+  console.log("Received Event", req.body.type);
+  return res.status(200).json({});
+  
+})
+
+
 app.use('/api/v1/snippet', snippetRouter);
 
 "http:localhost:4000/api/v1/snippet"

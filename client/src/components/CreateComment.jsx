@@ -1,45 +1,33 @@
 import React, {useState} from "react";
 import axios from "axios"
-import { useEffect } from "react";
 
-const CreateComment = ({snippetId}) => {
+const CreateComment = ({snippet}) => {
   const [text, setText] = useState("");
   const [comments, setComments] = useState([]);
 
   const addComment = async (e) =>{
     e.preventDefault();
     try {
-        const res = await axios.post(`http://localhost:8001/api/v1/snippet/${snippetId}/comment`, {text})
-        console.log(res.data);
+        const res = await axios.post(`http://localhost:8001/api/v1/snippet/${snippet.id}/comment`, {text})
         setComments([...comments, res.data.comment])
+        setText("")
     } catch (error) {
         console.log(error);
         
     }
   }
 
-  useEffect(()=>{
-    const fetchComments = async()=>{
-        try {
-            const res = await axios.get(`http://localhost:8001/api/v1/snippet/${snippetId}/commetn`)
-            setComments(res.data)
-        } catch (error) {
-            
-        }
-    }
-    fetchComments();
-  }, [])
   return (
-    <div>
+    <div className="mt-3">
 
 
     {
-        comments.map((comment, index)=>(
-            <li key={index} > {comment.text} </li>
+        snippet.comments.map((comment, index)=>(
+            <li key={index} className="text-sm" > {comment.content} </li>
         ))
     }
 
-    <form onSubmit={addComment} className="mt-5 flex items-center gap-2">
+    <form onSubmit={addComment} className="flex mt-3 items-center gap-2">
       <input
         type="text"
         value={text}

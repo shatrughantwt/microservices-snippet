@@ -11,6 +11,12 @@ app.use(cors({
   origin:"http://localhost:5173"
 }))
 
+app.post("events", (req,res)=>{
+  console.log("Received Event", req.body.type);
+  return res.status(200).json({});
+  
+})
+
 app.use("/api/v1/snippet", commentRouter)
 
 "http://localhost:8001/api/v1/snippet/:id/comment"
