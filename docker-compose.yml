@@ -1,0 +1,52 @@
+services:
+  snippet:
+    build:
+      context: ./snippet
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      CLIENT_ORIGIN: http://localhost:5173
+      AUTH_TOKEN: changeme
+    restart: unless-stopped
+
+  comments:
+    build:
+      context: ./comments
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      CLIENT_ORIGIN: http://localhost:5173
+      AUTH_TOKEN: changeme
+    restart: unless-stopped
+
+  query:
+    build:
+      context: ./query
+    ports:
+      - "8002:8002"
+    environment:
+      PORT: 8002
+      CLIENT_ORIGIN: http://localhost:5173
+    restart: unless-stopped
+
+  broker:
+    build:
+      context: ./message_broker
+    ports:
+      - "8005:8005"
+    environment:
+      PORT: 8005
+      CLIENT_ORIGIN: http://localhost:5173
+      BROKER_TARGETS: http://snippet:8000/events,http://comments:3000/events,http://query:8002/events
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8000
+    restart: unless-stopped
