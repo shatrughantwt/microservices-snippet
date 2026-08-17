@@ -263,9 +263,6 @@ Read the query service's current read-model:
 curl http://localhost:8002/snippets
 ```
 
-## Screenshots
-
-*(Placeholder — the `client/reference.html` contains a UI mock used as the design reference.)*
 
 ## What I learned
 
@@ -273,18 +270,5 @@ curl http://localhost:8002/snippets
 - Implementing a minimal HTTP-based broker to demonstrate event fan-out without introducing a full message queue.
 - Using SQLite via node:sqlite DatabaseSync for simple local persistence in a demo project.
 
-## Future improvements
 
-- Replace HTTP broker delivery with a real message queue (RabbitMQ, NATS, Kafka) for stronger delivery guarantees.
-- Add retry/backoff and dead-letter handling for failed broker deliveries.
-- Add integration tests exercising full event flows (end-to-end).
-- Improve frontend UX, add pagination and search to the query service.
-
-## Contributing
-
-Contributions are welcome — open an issue or a pull request. Keep changes small and focused; add tests for bug fixes or new features.
-
-## License
-
-This repository does not include an explicit license file. Treat the code as sample/demo code. If you intend to reuse it, please add a suitable open-source license to the repo (e.g. MIT).
 
