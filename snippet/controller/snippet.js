@@ -2,6 +2,8 @@ import { randomBytes } from "crypto";
 import axios from "axios";
 import { createSnippetRecord, listSnippets } from "../database/index.js";
 
+const BROKER_URL = process.env.BROKER_URL || "http://localhost:8005/events";
+
 export const createSnippet = async (req, res) => {
   try {
     const { title, code } = req.body;
@@ -21,7 +23,7 @@ export const createSnippet = async (req, res) => {
       code,
     });
 
-    await axios.post("http://localhost:8005/events", {
+    await axios.post(BROKER_URL, {
       type: "SnippetCreated",
       data: { id, title: title.trim() },
     });

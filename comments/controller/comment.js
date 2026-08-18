@@ -2,6 +2,8 @@ import { randomBytes } from "crypto";
 import axios from "axios";
 import { createCommentRecord, listCommentsBySnippetId } from "../database/index.js";
 
+const BROKER_URL = process.env.BROKER_URL || "http://localhost:8005/events";
+
 export const createComment = async (req, res) => {
   try {
     const { text } = req.body;
@@ -22,7 +24,7 @@ export const createComment = async (req, res) => {
       content: text.trim(),
     });
 
-    await axios.post("http://localhost:8005/events", {
+    await axios.post(BROKER_URL, {
       type: "CommentCreated",
       data: {
         id: commentId,

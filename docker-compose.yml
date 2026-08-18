@@ -8,6 +8,7 @@ services:
       PORT: 8000
       CLIENT_ORIGIN: http://localhost:5173
       AUTH_TOKEN: changeme
+      BROKER_URL: http://broker:8005/events
     restart: unless-stopped
 
   comments:
@@ -19,6 +20,7 @@ services:
       PORT: 3000
       CLIENT_ORIGIN: http://localhost:5173
       AUTH_TOKEN: changeme
+      BROKER_URL: http://broker:8005/events
     restart: unless-stopped
 
   query:
